@@ -2,7 +2,6 @@ FORM z_sapgui_progress_indicator USING VALUE(pv_text).
 
   CALL FUNCTION 'SAPGUI_PROGRESS_INDICATOR'
     EXPORTING
-*     PERCENTAGE = 0
       text = pv_text.
 
 ENDFORM.
@@ -32,13 +31,13 @@ SELECT cv~venda "SELECIONA OS VALORES
 ENDFORM.
 
 **********************************************************************
+
 FORM z_list_display.
   PERFORM z_sapgui_progress_indicator
   USING 'Estruturando a lista. Aguarde...'.
   CALL FUNCTION 'REUSE_ALV_LIST_DISPLAY'
     EXPORTING
       i_callback_program = g_repid
-*     i_structure_name   = 'VBAK'
       it_fieldcat        = gt_fieldcat
       i_save             = 'A'
     TABLES
@@ -46,7 +45,7 @@ FORM z_list_display.
     EXCEPTIONS
       program_error      = 1
       OTHERS             = 2.
-* Verificar processamento da função
+
   IF sy-subrc NE 0.
     MESSAGE ID sy-msgid TYPE sy-msgty NUMBER sy-msgno
     WITH sy-msgv1 sy-msgv2 sy-msgv3 sy-msgv4.
@@ -54,14 +53,13 @@ FORM z_list_display.
 
  ENDFORM.
 
-
+**********************************************************************
 
  FORM z_fielcat USING pt_fieldcat TYPE slis_t_fieldcat_alv.
 
   DATA: lf_fieldcat TYPE slis_fieldcat_alv.
 
   CLEAR pt_fieldcat[].
-
 
   lf_fieldcat-fieldname = 'VENDA'. " Nome do Campo
   lf_fieldcat-ref_tabname = 'ZVENDAS_02'. " Tab. de Referência
