@@ -14,7 +14,8 @@ TYPES: BEGIN OF vl_vendas,
          data         TYPE zvendas_02-data,
          hora         TYPE zvendas_02-hora,
 
-       END OF vl_vendas.
+END OF vl_vendas.
+
 **********************************************************************
 
 DATA: gt_saida    TYPE STANDARD TABLE OF vl_vendas,
